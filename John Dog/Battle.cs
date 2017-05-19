@@ -17,38 +17,33 @@ namespace John_Dog
         {
             Console.Clear();
             OngoingBattle = true;
-            JohnDog.Say("Battle Manager", "You challenge: " + enemy.Name + "!");
-            JohnDog.Say("Battle Manager", "Let the battle begin!");
+            NPC.Say("Battle Manager", "You challenge: " + enemy.Name + "!");
+            NPC.Say("Battle Manager", "Let the battle begin!");
             Thread.Sleep(1000);
             while (OngoingBattle)
             {
                 Console.Clear();
                 if (firstTime)
                 {
-                    JohnDog.Say("Battle Manager", "To attack, use the command \"attack\".");
-                    JohnDog.Say("Battle Manager", "To use your shield, use the command \"shieldbash\".");
+                    NPC.Say("Battle Manager", "To attack, use the command \"attack\".");
+                    NPC.Say("Battle Manager", "To use your shield, use the command \"shieldbash\".");
                 }
                 Command = Console.ReadLine();
                 Console.Clear();
                 switch (Command.ToLower())
                 {
                     case "attack":
-                        JohnDog.Say("Battle Manager", "You attack with your " + player.Inventory[1].Name + "!");
+                        NPC.Say("Battle Manager", "You attack with your " + player.Inventory[1].Name + "!");
                         enemy.Damage(player.Inventory[1], player, enemy);
-                        if (!enemy.Stunned) player.Damage(enemy, player);
-                        JohnDog.HandleDamageText(player, enemy);
-                        Console.ReadKey();
-                        break;
-                    case "shieldbash":
-                        enemy.Stunned = true;
-                        JohnDog.Say("Battle Manager", "You use your " + player.Inventory[2].Name + " to bash " + enemy.Name + "!");
-                        enemy.Damage(player.Inventory[2], player, enemy);
-                        if (!enemy.Stunned) player.Damage(enemy, player);
-                        JohnDog.HandleDamageText(player, enemy);
+                        player.Damage(enemy, player);
+                        Console.Write("\nYou take " + player.DamageTaken + " damage!", Color.DarkRed);
+                        Console.Write("\nYou deal " + enemy.DamageDealt + " damage!", Color.DarkOrange);
+                        Console.Write("\n" + enemy.Name + " is on " + enemy.HP + " HP!", Color.Orange);
+                        Console.Write("\nYou are on " + player.HP + " HP!", Color.Red);
                         Console.ReadKey();
                         break;
                     default:
-                        JohnDog.Say("Battle Manager", "Enter a valid command!");
+                        NPC.Say("Battle Manager", "Enter a valid command!");
                         Console.ReadKey();
                         Thread.Sleep(250);
                         break;

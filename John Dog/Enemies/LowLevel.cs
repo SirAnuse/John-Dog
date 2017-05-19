@@ -18,7 +18,7 @@ namespace John_Dog.Enemies
             Pirate.MaxDMG = 15;
             Pirate.HP = 125;
             Pirate.MP = 75;
-            Pirate.Name = "John the Pirate";            
+            Pirate.Name = "Pirate";            
         }
     }
 }

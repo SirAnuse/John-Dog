@@ -8,8 +8,6 @@ namespace John_Dog
 {
     class Enemy
     {
-        public static int TurnsSinceStun { get; set; }
-        public bool Stunned { get; set; }
         public string Name { get; set; }
         public bool Alive { get; set; }
         public int HP { get; set; }   
@@ -20,8 +18,6 @@ namespace John_Dog
         public int MaxDMG { get; set; }
         public void Damage (Item item, Player player, Enemy enemy)
         {
-            if (Stunned) TurnsSinceStun++;
-            if (TurnsSinceStun > 3) Stunned = false;
             int dmg = Item.CalculateDMG(item, player);
             enemy.HP -= Item.GetDEFDamage(dmg, enemy);
             DamageDealt = Item.GetDEFDamage(dmg, enemy);
