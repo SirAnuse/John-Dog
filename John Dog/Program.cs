@@ -20,17 +20,17 @@ namespace John_Dog
         static void Main(string[] args)
         {
             string entry;
-            
+
             Player player = new Player();
             Swords.SetSwords();
             Shields.SetShields();
             player.Inventory.Add(1, Swords.ShortSword);
             player.Inventory.Add(2, Shields.WoodenShield);
-            NPC.Say("Console", "Welcome to John Dog v0.0.1, player!");
-            NPC.Say("Console", "What is your name?");
+            JohnDog.Say("Console", "Welcome to John Dog v0.0.1, player!");
+            JohnDog.Say("Console", "What is your name?");
             Console.Write(">", Color.NavajoWhite);
             player.Name = Console.ReadLine();
-            NPC.Say("Console", "Welcome, " + player.Name + "! I hope you enjoy your time playing John Dog!");
+            JohnDog.Say("Console", "Welcome, " + player.Name + "! I hope you enjoy your time playing John Dog!");
             Thread.Sleep(1500);
             Console.Clear();
             bool firstBit = true;
@@ -39,9 +39,9 @@ namespace John_Dog
             {
                 if (firstBit)
                 { 
-                    NPC.Say("Console", "You are on a beach. You are carrying a short sword and wooden shield.");
-                    NPC.Say("Console", "There's a pirate wandering across the beach.");
-                    NPC.Say("Console", "You can say \"examine weapon\", for example, to examine your short sword.");
+                    JohnDog.Say("Console", "You are on a beach. You are carrying a short sword and wooden shield.");
+                    JohnDog.Say("Console", "There's a pirate wandering across the beach.");
+                    JohnDog.Say("Console", "You can say \"examine weapon\", for example, to examine your short sword.");
                     entry = Console.ReadLine();
                     Console.Clear();
                     switch (entry.ToLower())
@@ -61,8 +61,8 @@ namespace John_Dog
                             Console.ReadKey();
                             break;
                         default:
-                            NPC.Say("Console", "Please enter something!");
-                            Thread.Sleep(750);
+                            JohnDog.Say("Console", "Please enter something!");
+                            Thread.Sleep(1250);
                             break;
                     }
                     Console.Clear();
