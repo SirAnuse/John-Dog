@@ -122,17 +122,7 @@ namespace John_Dog
             else Console.Write(item.Tier);
             Console.Write("\nDamage: ", Color.White);
             Console.Write(item.MinDamage + " - " + item.MaxDamage);
-            if (item.Shield)
-            {
-                Console.Write("\nStun Duration: ", Color.White);
-                Console.Write(item.StunDuration);
-            }
-            if (item.Ability)
-            {
-                Console.Write("\nMana Cost: ", Color.White);
-                Console.Write(item.ManaCost);
-            }
-            else if (item.Weapon)
+            if (item.Weapon)
             {
                 Console.Write("\nRate of Fire: ", Color.White);
                 float FireRate = item.RateOfFire * 100;
@@ -140,6 +130,16 @@ namespace John_Dog
             }
             Console.Write("\nDescription: ", Color.White);
             Console.Write(item.Description);
+            if (item.Shield)
+            {
+                Console.Write("\nStun Duration: ", Color.White);
+                Console.Write(item.StunDuration + " Turns");
+            }
+            if (item.Ability)
+            {
+                Console.Write("\nMana Cost: ", Color.White);
+                Console.Write(item.ManaCost);
+            }
             if (item.DefBonus > 0 || item.DefBonus < 0)
             {
                 Console.Write("\nStat Bonuses: ", Color.White);

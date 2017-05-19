@@ -40,7 +40,15 @@ namespace John_Dog
                         Console.ReadKey();
                         break;
                     case "shieldbash":
+                        if (player.MP < player.Inventory[2].ManaCost)
+                        {
+                            JohnDog.Say("Battle Manager", "You don't have the MP to do that right now!");
+                            Console.ReadKey();
+                            break;
+                        }
+                        player.MP -= player.Inventory[2].ManaCost;
                         enemy.Stunned = true;
+                        enemy.StunnedDuration = player.Inventory[2].StunDuration;
                         JohnDog.Say("Battle Manager", "You use your " + player.Inventory[2].Name + " to bash " + enemy.Name + "!");
                         enemy.Damage(player.Inventory[2], player, enemy);
                         if (!enemy.Stunned) player.Damage(enemy, player);
