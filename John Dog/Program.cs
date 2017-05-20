@@ -24,12 +24,11 @@ namespace John_Dog
             Player player = new Player();
             Swords.SetSwords();
             Shields.SetShields();
-            player.Inventory.Add(1, Swords.ShortSword);
-            player.Inventory.Add(2, Shields.WoodenShield);
             JohnDog.Say("Console", "Welcome to John Dog v0.0.1, player!");
             JohnDog.Say("Console", "What is your name?");
             Console.Write(">", Color.NavajoWhite);
             player.Name = Console.ReadLine();
+            player.SetPlayerDefaults(player);
             JohnDog.Say("Console", "Welcome, " + player.Name + "! I hope you enjoy your time playing John Dog!");
             Thread.Sleep(1500);
             Console.Clear();

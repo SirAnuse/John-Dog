@@ -28,7 +28,7 @@ namespace John_Dog
             if (DiceRoll < prob) return true;
             else return false;
         }
-        public static void HandleDamageText (Player player, Enemy enemy)
+        public static void HandleBattleText (Player player, Enemy enemy)
         {
             if (enemy.Dodged) Console.Write("\n" + enemy.Name + " dodges your attack!", Color.DarkOrange);
             else if (player.Stunned) Console.Write("\nYou are stunned and unable to attack!", Color.DarkRed);
@@ -39,6 +39,25 @@ namespace John_Dog
             else Console.Write("\nYou take " + player.DamageTaken + " damage!", Color.DarkRed);
             Console.Write("\nYou are on " + player.HP + " HP!", Color.Red);
             Console.Write("\nYou are on " + player.MP + " MP!", Color.CornflowerBlue);
+        }
+
+        public static int GetDEFDamage(int damage, Enemy enemy)
+        {
+            float limit = damage * 0.15f;
+            int enemyDef = enemy.DEF;
+            if (enemy.ArmorBroken) enemyDef = 0;
+            if (enemy.Armored) enemyDef *= 2;
+            if (damage - enemy.DEF < limit) return Convert.ToInt32(limit);
+            else return damage - enemy.DEF;
+        }
+        public static int GetDEFDamage(int damage, Player player)
+        {
+            int playerDef = player.DEF += player.TotalDefenseBonus;
+            if (player.ArmorBroken) playerDef = 0;
+            if (player.Armored) playerDef *= 2;
+            float limit = damage * 0.15f;
+            if (damage - playerDef < limit) return Convert.ToInt32(limit);
+            else return damage - playerDef;
         }
 
         public static void Say (string name, string text)

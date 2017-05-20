@@ -73,18 +73,7 @@ namespace John_Dog
                 
             }
         }
-        public static int GetDEFDamage(int damage, Enemy enemy)
-        {
-            float limit = damage * 0.15f;
-            if (damage - enemy.DEF < limit) return Convert.ToInt32(limit);
-            else return damage - enemy.DEF;
-        }
-        public static int GetDEFDamage(int damage, Player player)
-        {
-            float limit = damage * 0.15f;
-            if (damage - player.DEF < limit) return Convert.ToInt32(limit);
-            else return damage - player.DEF;
-        }
+        
         public static int CalculateDMG(Item item, Player player)
         {
             Random rand = new Random();

@@ -15,6 +15,7 @@ namespace John_Dog
         public static bool OngoingBattle { get; set; }
         public static void Begin (Player player, Enemy enemy, bool firstTime)
         {
+            player.CalculateDefBonus(player);
             Console.Clear();
             OngoingBattle = true;
             JohnDog.Say("Battle Manager", "You challenge: " + enemy.Name + "!");
@@ -33,13 +34,17 @@ namespace John_Dog
                 switch (Command.ToLower())
                 {
                     case "attack":
+                        player.MP += player.CalculateMPRegen(player);
+                        player.BattleTurnsCounter++;
                         JohnDog.Say("Battle Manager", "You attack with your " + player.Inventory[1].Name + "!");
                         enemy.Damage(player.Inventory[1], player, enemy);
                         if (!enemy.Stunned) player.Damage(enemy, player);
-                        JohnDog.HandleDamageText(player, enemy);
+                        JohnDog.HandleBattleText(player, enemy);
                         Console.ReadKey();
                         break;
                     case "shieldbash":
+                        player.BattleTurnsCounter++;
+                        player.MP += player.CalculateMPRegen(player);
                         if (player.MP < player.Inventory[2].ManaCost)
                         {
                             JohnDog.Say("Battle Manager", "You don't have the MP to do that right now!");
@@ -52,13 +57,13 @@ namespace John_Dog
                         JohnDog.Say("Battle Manager", "You use your " + player.Inventory[2].Name + " to bash " + enemy.Name + "!");
                         enemy.Damage(player.Inventory[2], player, enemy);
                         if (!enemy.Stunned) player.Damage(enemy, player);
-                        JohnDog.HandleDamageText(player, enemy);
+                        JohnDog.HandleBattleText(player, enemy);
                         Console.ReadKey();
                         break;
                     default:
                         JohnDog.Say("Battle Manager", "Enter a valid command!");
                         Console.ReadKey();
-                        Thread.Sleep(250);
+                        Thread.Sleep(1250);
                         break;
                 }
             }
