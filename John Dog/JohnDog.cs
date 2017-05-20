@@ -32,10 +32,7 @@ namespace John_Dog
         {
             if (!enemy.Alive)
             {
-                Console.Write("\nYou have killed " + enemy.Name + "!");
-                enemy.DropLoot(player, enemy);
-                if (enemy.HasLootDropped) Console.Write("\nYou have looted a " + enemy.LootDropped.Name + "!");
-                else Console.Write("\nSadly, " + enemy.Name + " did not drop anything!");
+                Console.Write("\nYou have killed " + enemy.Name + "!", Color.DarkOrange);
             }
             else
             {

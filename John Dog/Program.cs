@@ -36,7 +36,7 @@ namespace John_Dog
             bool running = true;
             while (running)
             {
-                if (firstBit)
+                while (firstBit)
                 {
                     if (player.BattleCompleted)
                     {
@@ -71,36 +71,39 @@ namespace John_Dog
                     }
                     Console.Clear();
                 }
-                Enemies.LowLevel.SetPirate();
-                Enemies.LowLevel.SetSlime();
-                Map.GetEquipmentDescription(player);
-                Map.GetMapDescription("forest");
-                Map.GetMapEnemies("forest");
-                entry = Console.ReadLine();
-                switch (entry.ToLower())
+                while (!firstBit)
                 {
-                    case "attack pirate":
-                        Battle.Begin(player, Enemies.LowLevel.Pirate, true);
-                        break;
-                    case "attack slime":
-                        Battle.Begin(player, Enemies.LowLevel.Slime, true);
-                        break;
-                    case "examine weapon":
-                        Item.PrintDetails(player.Inventory[1]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
-                        Console.ReadKey();
-                        break;
-                    case "examine shield":
-                        Item.PrintDetails(player.Inventory[2]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
-                        Console.ReadKey();
-                        break;
-                    default:
-                        JohnDog.Say("Console", "Please enter something!");
-                        Thread.Sleep(1250);
-                        break;
+                    Map.GetEquipmentDescription(player);
+                    Map.GetMapDescription("forest");
+                    Map.GetMapEnemies("forest");
+                    entry = Console.ReadLine();
+                    switch (entry.ToLower())
+                    {
+                        case "attack pirate":
+                            Enemies.LowLevel.SetPirate();
+                            Battle.Begin(player, Enemies.LowLevel.Pirate, true);
+                            break;
+                        case "attack slime":
+                            Enemies.LowLevel.SetSlime();
+                            Battle.Begin(player, Enemies.LowLevel.Slime, true);
+                            break;
+                        case "examine weapon":
+                            Item.PrintDetails(player.Inventory[1]);
+                            Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                            Console.ReadKey();
+                            break;
+                        case "examine shield":
+                            Item.PrintDetails(player.Inventory[2]);
+                            Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                            Console.ReadKey();
+                            break;
+                        default:
+                            JohnDog.Say("Console", "Please enter something!");
+                            Thread.Sleep(1250);
+                            break;
+                    }
+                    Console.Clear();
                 }
-                Console.Clear();
             }
             Console.ReadKey();
         }

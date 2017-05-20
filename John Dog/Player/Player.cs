@@ -59,6 +59,11 @@ namespace John_Dog
             player.DEF = 0;
             player.WIS = 10;
             player.Inventory.Add(1, Swords.ShortSword);
+            if (player.Name.ToLower() == "dogsucc87")
+            {
+                player.Inventory.Remove(1);
+                player.Inventory.Add(1, Swords.AncientStoneSword);
+            }
             player.Inventory.Add(2, Shields.WoodenShield);
         }
         public void Damage (Enemy enemy, Player player)

@@ -67,10 +67,6 @@ namespace John_Dog
                     HasLootDropped = false;
                 }
             }
-            HasLootDropped = false;
-            Loot.ItemToDrop = null;
-            Loot.DropRate = null;
-            Loot.Amount = null;
         }
         public void Damage (Item item, Player player, Enemy enemy)
         {
