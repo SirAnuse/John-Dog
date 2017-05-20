@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Text.RegularExpressions;
 using System.Drawing;
 using Console = Colorful.Console;
 
@@ -75,7 +76,84 @@ namespace John_Dog
                 
             }
         }
-        
+
+        public static void Examine (Player player, string slot)
+        {
+            string entry = slot;
+            string[] cmds;
+            Regex argReg = new Regex(@"\w+|""[\w\s]*""");
+            cmds = new string[argReg.Matches(entry).Count];
+            int i = 0;
+            foreach (var enumer in argReg.Matches(entry))
+            {
+                cmds[i] = (string)enumer.ToString();
+                i++;
+            }
+
+            int meme = 0;
+            try { meme = Convert.ToInt32(cmds[0]); }
+            catch { }
+            if (meme > 0)
+            {
+                try {
+                    PrintDetails(player.Inventory[meme]);
+                    Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                }
+                catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
+                Console.ReadKey();
+                return;
+            }
+            else if (cmds[0] == "slot")
+            {
+                try { meme = Convert.ToInt32(cmds[1]); }
+                catch { }
+                if (meme > 0)
+                {
+                    try {
+                        PrintDetails(player.Inventory[meme]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                    }
+                    catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
+                    Console.ReadKey();
+                    return;
+                }
+            }
+            else
+            {
+                switch (slot.ToLower())
+                {
+                    case "1":
+                    case "weapon":
+                        Item.PrintDetails(player.Inventory[1]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "2":
+                    case "shield":
+                    case "ability":
+                        Item.PrintDetails(player.Inventory[2]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                    case "armour":
+                    case "armor":
+                        Item.PrintDetails(player.Inventory[3]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "ring":
+                        Item.PrintDetails(player.Inventory[4]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    default:
+                        JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!");
+                        break;
+                }
+            }
+        }
+
         public static int CalculateDMG(Item item, Player player)
         {
             Random rand = new Random();

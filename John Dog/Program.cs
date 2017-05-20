@@ -20,16 +20,14 @@ namespace John_Dog
     {
         static void Main(string[] args)
         {
-            
 
-            string entry;
             string[] cmds;
+            string entry;
             Player player = new Player();
             Swords.SetSwords();
             Shields.SetShields();
             JohnDog.Say("Console", "Welcome to John Dog v0.0.1, player!");
             JohnDog.Say("Console", "What is your name?");
-            Console.Write(">");
             player.Name = Console.ReadLine();
             player.SetPlayerDefaults(player);
             JohnDog.Say("Console", "Welcome, " + player.Name + "! I hope you enjoy your time playing John Dog!");
@@ -53,7 +51,7 @@ namespace John_Dog
                     JohnDog.Say("Console", "There's a pirate wandering across the beach.");
                     JohnDog.Say("Console", "You can say \"examine weapon\", for example, to examine your short sword.");
                     entry = Console.ReadLine();
-                    Regex regex = new Regex(@"\w+|""[\w\s]*""");
+                    
                     Console.Clear();
                     switch (entry.ToLower())
                     {
@@ -89,29 +87,48 @@ namespace John_Dog
                 Map.GetMapDescription("forest");
                 Map.GetMapEnemies("forest");
                 entry = Console.ReadLine();
-                switch (entry.ToLower())
+                Console.Clear();
+                Regex argReg = new Regex(@"\w+|""[\w\s]*""");
+                cmds = new string[argReg.Matches(entry).Count];
+                int i = 0;
+                foreach (var enumer in argReg.Matches(entry))
                 {
-                    case "view inventory":
-                        JohnDog.ViewInventory(player);
-                        Console.ReadKey();
+                    cmds[i] = (string)enumer.ToString();
+                    i++;
+                }
+                switch (cmds[0].ToLower())
+                {
+                    case "view":
+                        switch (cmds[1].ToLower())
+                        {
+                            case "inventory":
+                                JohnDog.ViewInventory(player);
+                                Console.ReadKey();
+                                break;
+                            default:
+                                JohnDog.Say("Console", "Did you mean \"view inventory\"?");
+                                Console.ReadKey();
+                                break;
+                        }
                         break;
-                    case "attack pirate":
-                        Enemies.LowLevel.SetPirate();
-                        Battle.Begin(player, Enemies.LowLevel.Pirate, true);
+                    case "attack":
+                        switch (cmds[1].ToLower())
+                        {
+                            case "pirate":
+                                Enemies.LowLevel.SetPirate();
+                                Battle.Begin(player, Enemies.LowLevel.Pirate, true);
+                                break;
+                            case "slime":
+                                Enemies.LowLevel.SetSlime();
+                                Battle.Begin(player, Enemies.LowLevel.Slime, true);
+                                break;
+                            default:
+                                JohnDog.Say("Battle Manager", "You can't attack nothing!");
+                                break;
+                        }
                         break;
-                    case "attack slime":
-                        Enemies.LowLevel.SetSlime();
-                        Battle.Begin(player, Enemies.LowLevel.Slime, true);
-                        break;
-                    case "examine weapon":
-                        Item.PrintDetails(player.Inventory[1]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
-                        Console.ReadKey();
-                        break;
-                    case "examine shield":
-                        Item.PrintDetails(player.Inventory[2]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
-                        Console.ReadKey();
+                    case "examine":
+                        Item.Examine(player, cmds[1].ToLower());
                         break;
                     default:
                         JohnDog.Say("Console", "Please enter something!");

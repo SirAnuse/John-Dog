@@ -8,6 +8,6 @@ namespace John_Dog
 {
     class ConditionEffect
     {
-        
+        // Currently un-used. May be used in a future release, or deleted.
     }
 }
