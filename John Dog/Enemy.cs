@@ -40,10 +40,10 @@ namespace John_Dog
         public void ResetLoot ()
         {
             LootDropped = null;
-            Loot.ItemToDrop = null;
+            Loot.ItemToDrop.Clear();
             HasLootDropped = false;
-            Loot.DropRate = null;
-            Loot.Amount = null;
+            Loot.DropRate.Clear();
+            Loot.Amount.Clear();
         }
 
         public void DropLoot (Player player, Enemy enemy)

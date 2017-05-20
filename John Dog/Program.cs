@@ -49,12 +49,17 @@ namespace John_Dog
                 {
                     JohnDog.Say("Console", "You are on a beach. You are carrying a short sword and wooden shield.");
                     JohnDog.Say("Console", "There's a pirate wandering across the beach.");
-                    JohnDog.Say("Console", "You can say 'examine weapon', for example, to examine your sword.");
+                    JohnDog.Say("Console", "You can say 'examine weapon' (without the apostrophes), for example, to examine your sword.");
                     entry = Console.ReadLine();
                     
                     Console.Clear();
                     switch (entry.ToLower())
                     {
+                        case "skip":
+                            firstBit = false;
+                            JohnDog.Say("Console", "You have skipped the tutorial.");
+                            Console.ReadKey();
+                            break;
                         case "view inventory":
                             JohnDog.ViewInventory(player);
                             Console.ReadKey();
@@ -65,17 +70,17 @@ namespace John_Dog
                             break;
                         case "examine weapon":
                             Item.PrintDetails(player.Inventory[1]);
-                            Console.Write("\nPress 'enter' once you are finished reading.", Color.Yellow);
+                            Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                             Console.ReadKey();
                             break;
                         case "examine shield":
                             Item.PrintDetails(player.Inventory[2]);
-                            Console.Write("\nPress 'enter' once you are finished reading.", Color.Yellow);
+                            Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                             Console.ReadKey();
                             break;
                         default:
-                            JohnDog.Say("Console", "Please enter something!");
-                            Thread.Sleep(1250);
+                            JohnDog.Say("Console", "Please enter a valid command!");
+                            Console.ReadKey();
                             break;
                     }
                     Console.Clear();
@@ -96,56 +101,114 @@ namespace John_Dog
                     cmds[i] = (string)enumer.ToString();
                     i++;
                 }
-                switch (cmds[0].ToLower())
+                if (cmds.Length == 0)
                 {
-                    case "view":
-                        if (cmds.Length > 1)
-                        {
-                            switch (cmds[1].ToLower())
+                    JohnDog.Say("Console", "Please enter a valid command!");
+                    Console.ReadKey();
+                }
+                else
+                {
+                    switch (cmds[0].ToLower())
+                    {
+                        case "give":
+                            if (cmds.Length > 1)
                             {
-                                case "inventory":
-                                    JohnDog.ViewInventory(player);
-                                    Console.ReadKey();
-                                    break;
-                                default:
-                                    JohnDog.Say("Console", "Did you mean 'view inventory'?");
-                                    Console.ReadKey();
-                                    break;
+                                if (cmds.Length > 2)
+                                {
+                                    switch (cmds[2].ToLower())
+                                    {
+                                        case "ass":
+                                        case "\"ancient stone sword\"":
+                                            switch (cmds[3].ToLower())
+                                            {
+                                                case "1":
+                                                    JohnDog.Give(player, Swords.AncientStoneSword, 4);
+                                                    Console.ReadKey();
+                                                    break;
+                                            }
+                                            break;
+                                        default:
+                                            JohnDog.Say("Console", "Invalid item!");
+                                            Console.ReadKey();
+                                            break;
+
+                                    }
+                                }
+                                switch (cmds[1].ToLower())
+                                {
+                                    case "ass":
+                                    case "\"ancient stone sword\"":
+                                        JohnDog.Give(player, Swords.AncientStoneSword);
+                                        break;
+                                    default:
+                                        JohnDog.Say("Console", "Invalid item!");
+                                        Console.ReadKey();
+                                        break;
+                                }
                             }
-                        }
-                        else
-                        {
-                            JohnDog.Say("Console", "Did you mean 'view inventory'?");
-                            Console.ReadKey();
-                        }
-                        break;
-                    case "attack":
-                        switch (cmds[1].ToLower())
-                        {
-                            case "pirate":
-                                Enemies.LowLevel.SetPirate();
-                                Battle.Begin(player, Enemies.LowLevel.Pirate, true);
-                                break;
-                            case "slime":
-                                Enemies.LowLevel.SetSlime();
-                                Battle.Begin(player, Enemies.LowLevel.Slime, true);
-                                break;
-                            default:
-                                JohnDog.Say("Battle Manager", "You can't attack nothing!");
-                                break;
-                        }
-                        break;
-                    case "examine":
-                        if (cmds.Length > 2) Item.Examine(player, cmds[1].ToLower(), cmds[2].ToLower());
-                        else Item.Examine(player, cmds[1].ToLower());
-                        break;
-                    case "drop":
-                        Item.Drop(player, cmds[1].ToLower());
-                        break;
-                    default:
-                        JohnDog.Say("Console", "Please enter something!");
-                        Thread.Sleep(1250);
-                        break;
+                            else
+                            {
+                                JohnDog.Say("Console", "Did you mean 'give <item>'?");
+                                Console.ReadKey();
+                            }
+                            break;
+                        case "view":
+                            if (cmds.Length > 1)
+                            {
+                                switch (cmds[1].ToLower())
+                                {
+                                    case "inventory":
+                                        JohnDog.ViewInventory(player);
+                                        Console.ReadKey();
+                                        break;
+                                    default:
+                                        JohnDog.Say("Console", "Did you mean 'view inventory'?");
+                                        Console.ReadKey();
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                JohnDog.Say("Console", "Did you mean 'view inventory'?");
+                                Console.ReadKey();
+                            }
+                            break;
+                        case "attack":
+                            if (cmds.Length > 1)
+                            {
+                                switch (cmds[1].ToLower())
+                                {
+                                    case "pirate":
+                                        Enemies.LowLevel.SetPirate();
+                                        Battle.Begin(player, Enemies.LowLevel.Pirate, true);
+                                        break;
+                                    case "slime":
+                                        Enemies.LowLevel.SetSlime();
+                                        Battle.Begin(player, Enemies.LowLevel.Slime, true);
+                                        break;
+                                    default:
+                                        JohnDog.Say("Battle Manager", "You can't attack nothing!");
+                                        break;
+                                }
+                            }
+                            else
+                            {
+                                JohnDog.Say("Console", "Did you mean 'attack <enemy>'?");
+                                Console.ReadKey();
+                            }
+                            break;
+                        case "examine":
+                            if (cmds.Length > 2) Item.Examine(player, cmds[1].ToLower(), cmds[2].ToLower());
+                            else Item.Examine(player, cmds[1].ToLower());
+                            break;
+                        case "drop":
+                            Item.Drop(player, cmds[1].ToLower());
+                            break;
+                        default:
+                            JohnDog.Say("Console", "Please enter something!");
+                            Thread.Sleep(1250);
+                            break;
+                    }
                 }
                 Console.Clear();
             }

@@ -19,6 +19,7 @@ namespace John_Dog.Enemies
             Slime.MaxDMG = 25;
             Slime.HP = 250;
             Slime.MP = 0;
+            Slime.Name = "Slim Slimy";
             Loot.Amount.Add(1, 1);
             Loot.ItemToDrop.Add(1, Swords.LongSword);
             Loot.DropRate.Add(1, 0.35f);

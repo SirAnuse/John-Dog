@@ -97,6 +97,10 @@ namespace John_Dog
             {
                 try
                 {
+                    // This part is to cause an error straight away if one will happen
+                    Console.Write(player.Inventory[meme].Name);
+                    Console.Clear();
+
                     Console.Write("<Inventory Manager> ", Color.Orange);
                     Console.Write("Are you sure you want to drop your ", Color.White);
                     if (player.Inventory[meme].Untiered) Console.Write(player.Inventory[meme].Name, Color.Purple);
@@ -111,7 +115,7 @@ namespace John_Dog
                         case "yes":
                             JohnDog.Drop(player, meme);
                             Console.ReadKey();
-                            break;
+                            return;
                         case "n":
                         case "ne":
                         case "neh":
@@ -121,11 +125,11 @@ namespace John_Dog
                         case "no":
                             JohnDog.Say("Inventory Manager", player.Inventory[meme].Name + " was not dropped!");
                             Console.ReadKey();
-                            break;
+                            return;
                         default:
                             JohnDog.Say("Inventory Manager", "Please use 'n' or 'no' next time! If you meant yes, then use 'y' or 'yes'.");
                             Console.ReadKey();
-                            break;
+                            return;
                     }
                 }
                 catch { JohnDog.Say("Inventory Manager", "You can't drop what doesn't exist!"); }
@@ -229,7 +233,7 @@ namespace John_Dog
                 try
                 {
                     PrintDetails(player.Inventory[meme]);
-                    Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                    Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                 }
                 catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
                 Console.ReadKey();
@@ -258,26 +262,26 @@ namespace John_Dog
                     case "1":
                     case "weapon":
                         Item.PrintDetails(player.Inventory[1]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "2":
                     case "shield":
                     case "ability":
                         Item.PrintDetails(player.Inventory[2]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "3":
                     case "armour":
                     case "armor":
                         Item.PrintDetails(player.Inventory[3]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "ring":
                         Item.PrintDetails(player.Inventory[4]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     default:
@@ -307,7 +311,7 @@ namespace John_Dog
             {
                 try {
                     PrintDetails(player.Inventory[meme]);
-                    Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                    Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                 }
                 catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
                 Console.ReadKey();
@@ -321,7 +325,7 @@ namespace John_Dog
                 {
                     try {
                         PrintDetails(player.Inventory[meme]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                     }
                     catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
                     Console.ReadKey();
@@ -335,26 +339,26 @@ namespace John_Dog
                     case "1":
                     case "weapon":
                         Item.PrintDetails(player.Inventory[1]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "2":
                     case "shield":
                     case "ability":
                         Item.PrintDetails(player.Inventory[2]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "3":
                     case "armour":
                     case "armor":
                         Item.PrintDetails(player.Inventory[3]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     case "ring":
                         Item.PrintDetails(player.Inventory[4]);
-                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.Write("\nPress any key once you are finished reading.", Color.Yellow);
                         Console.ReadKey();
                         break;
                     default:
@@ -394,34 +398,34 @@ namespace John_Dog
         }
         public static void PrintDetails (Item item)
         {
-            Console.Write("\nName: ", Color.White);
+            Console.Write("\nName: ", Color.Orange);
             Console.Write(item.Name);
-            Console.Write("\nTier: ", Color.White);
+            Console.Write("\nTier: ", Color.Orange);
             if (item.Untiered) Console.Write("Untiered", Color.Purple);
             else Console.Write(item.Tier);
-            Console.Write("\nDamage: ", Color.White);
+            Console.Write("\nDamage: ", Color.Orange);
             Console.Write(item.MinDamage + " - " + item.MaxDamage);
             if (item.Weapon)
             {
-                Console.Write("\nRate of Fire: ", Color.White);
+                Console.Write("\nRate of Fire: ", Color.Orange);
                 float FireRate = item.RateOfFire * 100;
                 Console.Write(FireRate + "%");
             }
-            Console.Write("\nDescription: ", Color.White);
+            Console.Write("\nDescription: ", Color.Orange);
             Console.Write(item.Description);
             if (item.Shield)
             {
-                Console.Write("\nStun Duration: ", Color.White);
+                Console.Write("\nStun Duration: ", Color.Orange);
                 Console.Write(item.StunDuration + " Turns");
             }
             if (item.Ability)
             {
-                Console.Write("\nMana Cost: ", Color.White);
+                Console.Write("\nMana Cost: ", Color.Orange);
                 Console.Write(item.ManaCost);
             }
             if (item.DefBonus > 0 || item.DefBonus < 0)
             {
-                Console.Write("\nStat Bonuses: ", Color.White);
+                Console.Write("\nStat Bonuses: ", Color.Orange);
                 Console.Write("+" + item.DefBonus + " DEF");
             }
             Console.Write("\n");

@@ -40,6 +40,41 @@ namespace John_Dog
                 player.Inventory.Add(availableSlot, itemToDequip);
             }
         }
+
+        public static void Give (Player player, Item item)
+        {
+            int availableSlot = 0;
+            for (int i = 4; i < 12; i++)
+            {
+                try
+                {
+                    string john = player.Inventory[i].Name;
+                }
+                catch
+                {
+                    availableSlot = i;
+                    return;
+                }
+            }
+            player.Inventory.Add(availableSlot, item);
+        }
+
+        public static void Give(Player player, Item item, int slot)
+        {
+            // Overrides the given slot
+
+            try {
+                player.Inventory.Remove(slot);
+                JohnDog.Say("Console", "Item '" + item.Name + "' is overwriting " + player.Inventory[slot]+ "!");
+                player.Inventory.Add(slot, item);
+                JohnDog.Say("Console", "Item '" + item.Name + "' given in slot " + slot + "!");
+            }
+            catch {
+                player.Inventory.Add(slot, item);
+                JohnDog.Say("Console", "Item '" + item.Name + "' given in slot " + slot + "!");
+            }
+        }
+
         public static void Drop(Player player, int slot)
         {
             try
