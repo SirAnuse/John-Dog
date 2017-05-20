@@ -99,16 +99,24 @@ namespace John_Dog
                 switch (cmds[0].ToLower())
                 {
                     case "view":
-                        switch (cmds[1].ToLower())
+                        if (cmds.Length > 1)
                         {
-                            case "inventory":
-                                JohnDog.ViewInventory(player);
-                                Console.ReadKey();
-                                break;
-                            default:
-                                JohnDog.Say("Console", "Did you mean 'view inventory'?");
-                                Console.ReadKey();
-                                break;
+                            switch (cmds[1].ToLower())
+                            {
+                                case "inventory":
+                                    JohnDog.ViewInventory(player);
+                                    Console.ReadKey();
+                                    break;
+                                default:
+                                    JohnDog.Say("Console", "Did you mean 'view inventory'?");
+                                    Console.ReadKey();
+                                    break;
+                            }
+                        }
+                        else
+                        {
+                            JohnDog.Say("Console", "Did you mean 'view inventory'?");
+                            Console.ReadKey();
                         }
                         break;
                     case "attack":
