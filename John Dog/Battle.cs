@@ -36,6 +36,7 @@ namespace John_Dog
                         Console.Write("!\n", Color.White);
                         Console.ReadKey();
                         OngoingBattle = false;
+                        enemy.ResetLoot();
                         player.BattleCompleted = true;
                         return;
                     }
@@ -44,6 +45,7 @@ namespace John_Dog
                         JohnDog.Say("Battle Manager", "Sadly, " + enemy.Name + " did not drop anything.");
                         Console.ReadKey();
                         OngoingBattle = false;
+                        enemy.ResetLoot();
                         player.BattleCompleted = true;
                         return;
                     }
