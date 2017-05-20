@@ -23,8 +23,8 @@ namespace John_Dog
         public bool Paralyzed { get; set; }
         public int BattleTurnsCounter { get; set; }
         public bool Dodged { get; set; }
-        
-        public Dictionary<int, Item> Inventory = new Dictionary<int, Item>();
+
+        public PlayerInventory<int, Item> Inventory = new PlayerInventory<int, Item>(12);
         public int TotalDefenseBonus { get; set; }
         public string Name { get; set; }
         public int HP { get; set; }
@@ -38,6 +38,7 @@ namespace John_Dog
         public bool BattleCompleted { get; set; }
         public int DamageTaken { get; set; }
         public bool Alive { get; set; }
+
         public int CalculateMPRegen (Player player)
         {
             float mpreg = player.WIS * 1.5f / 5;

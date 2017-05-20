@@ -16,6 +16,8 @@ namespace John_Dog
         // ManaCost if ability
         public int ManaCost { get; set; } 
         public bool Ability { get; set; }
+        public bool Armor { get; set; }
+        public bool Ring { get; set; }
         public int DefBonus { get; set; }
         public string Name { get; set; }
         public int MaxDamage { get; set; }

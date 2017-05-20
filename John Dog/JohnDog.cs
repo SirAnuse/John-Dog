@@ -4,12 +4,131 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Drawing;
+using System.Threading;
 using Console = Colorful.Console;
 
 namespace John_Dog
 {
     class JohnDog
     {
+        public static void Dequip(Player player, int slot)
+        {
+            if (slot < 4)
+            {
+                Say("Inventory Manager", "You can't dequip what you don't have equipped!");
+                Console.ReadKey();
+                Console.Clear();
+                return;
+            }
+            else
+            {
+                Item itemToDequip = player.Inventory[slot];
+                int availableSlot = 0;
+                for (int i = 4; i < 12; i++)
+                {
+                    try
+                    {
+                        string john = player.Inventory[i].Name;
+                    }
+                    catch
+                    {
+                        availableSlot = i;
+                        return;
+                    }
+                }
+                player.Inventory.Remove(slot);
+                player.Inventory.Add(availableSlot, itemToDequip);
+            }
+        }
+        public static void Drop(Player player, int slot)
+        {
+            player.Inventory.Remove(slot);
+        }
+        public static void Equip(Player player, int slot)
+        {
+            int swapId;
+            Console.Clear();
+            Dictionary<int, Item> QueueToSwap = new Dictionary<int, Item>();
+
+            // Add slot the player is attempting to equip to swap queue
+            QueueToSwap.Add(slot, player.Inventory[slot]);
+
+            // Just in case there's nothing there
+            try
+            {
+                if (player.Inventory[slot].Weapon)
+                {
+                    // Add player's weapon to swap queue
+                    QueueToSwap.Add(1, player.Inventory[1]);
+                    swapId = 1;
+                }
+                else if (player.Inventory[slot].Ability)
+                {
+                    // Add player's ability to swap queue
+                    QueueToSwap.Add(2, player.Inventory[2]);
+                    swapId = 2;
+                }
+                else if (player.Inventory[slot].Armor)
+                {
+                    // Add player's armor to swap queue
+                    QueueToSwap.Add(3, player.Inventory[3]);
+                    swapId = 3;
+                }
+                else if (player.Inventory[slot].Ring)
+                {
+                    // Add player's ability to swap queue
+                    QueueToSwap.Add(4, player.Inventory[4]);
+                    swapId = 4;
+                }
+                else
+                {
+                    Say("Inventory Manager", "You cannot equip this!");
+                    Console.ReadKey();
+                    Console.Clear();
+                    return;
+                }
+            }
+            catch
+            {
+                Say("Inventory Manager", "There is no item in that slot or you're swapping an equipment slot!");
+                Console.ReadKey();
+                Console.Clear();
+                return;
+            }
+            player.Inventory.Remove(slot);
+            player.Inventory.Remove(swapId);
+            player.Inventory.Add(slot, QueueToSwap[swapId]);
+            player.Inventory.Add(swapId, QueueToSwap[slot]);
+            Say("Inventory Manager", "Equipped " + QueueToSwap[slot].Name + "!");
+            Console.ReadKey();
+            Console.Clear();
+        }
+        public static void ViewInventory(Player player)
+        {
+            #region long and ugly block of try and catch
+            Console.Write("Slot 1 [Weapon Slot]: ", Color.Orange);
+            try { Console.Write(player.Inventory[1].Name + "\n", Color.White); }
+            catch { Console.Write("Empty\n", Color.White); }
+            Console.Write("Slot 2 [Ability Slot]: ", Color.Orange);
+            try { Console.Write(player.Inventory[2].Name + "\n", Color.White); }
+            catch { Console.Write("Empty\n", Color.White); }
+            Console.Write("Slot 3 [Armor Slot]: ", Color.Orange);
+            try { Console.Write(player.Inventory[3].Name + "\n", Color.White); }
+            catch { Console.Write("Empty\n", Color.White); }
+            Console.Write("Slot 4 [Ring Slot]: ", Color.Orange);
+            try { Console.Write(player.Inventory[4].Name + "\n", Color.White); }
+            catch { Console.Write("Empty\n", Color.White); }
+            #endregion
+            for (int i = 4; i < 11; i++)
+            {
+                int slotNo = i + 1;
+                {
+                    Console.Write("Slot " + slotNo + ": ", Color.Orange);
+                    try { Console.Write(player.Inventory[i + 1].Name + "\n", Color.White); }
+                    catch { Console.Write("Empty\n", Color.White); }
+                }
+            }
+        }
         public static bool DodgeHandler(Enemy enemy)
         {
             float step1 = enemy.Evasion / 50;

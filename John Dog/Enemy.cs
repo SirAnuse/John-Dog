@@ -59,7 +59,7 @@ namespace John_Dog
                     HasLootDropped = true;
                     for (int a = 0; a < Loot.Amount[i + 1]; a++)
                     {
-                        player.Inventory.Add(player.Inventory.Count + 1, Loot.ItemToDrop[i + 1]);
+                        player.Inventory.Add(player.Inventory.Count() + 1, Loot.ItemToDrop[i + 1]);
                     }
                 }
                 else
