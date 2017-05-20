@@ -71,7 +71,7 @@ namespace John_Dog
             }
             Dodged = false;
             if (Stunned) TurnsSinceStun++;
-            if (TurnsSinceStun > StunnedDuration + 1) Stunned = false;
+            if (TurnsSinceStun > StunnedDuration) Stunned = false;
             int dmg = new Random().Next(enemy.MinDMG, enemy.MaxDMG);
             DamageTaken = JohnDog.GetDEFDamage(dmg, player);
             if (player.HP - DamageTaken < 0) player.Alive = false;

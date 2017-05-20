@@ -32,6 +32,38 @@ namespace John_Dog
         public int MinDMG { get; set; }
         public int Evasion { get; set; }
         public int MaxDMG { get; set; }
+        public bool HasLootDropped { get; set; }
+        public Item LootDropped { get; set; }
+
+        public Loot loot { get; set; }
+
+        public void ResetLoot ()
+        {
+            LootDropped = null;
+            loot.LootToDrop = null;
+            HasLootDropped = false;
+            loot.DropRate = 0;
+            loot.Amount = 0;
+        }
+        public void DropLoot (Player player)
+        {
+            float dropProb = loot.DropRate * 100;
+            int rollDice = new Random().Next(1, 101);
+
+            if (rollDice < dropProb)
+            {
+                LootDropped = loot.LootToDrop;
+                HasLootDropped = true;
+                player.Inventory.Add(player.Inventory.Count + 1, loot.LootToDrop);
+            }
+            else
+            {
+                HasLootDropped = false;
+                loot.LootToDrop = null;
+                loot.DropRate = 0;
+                loot.Amount = 0;
+            }
+        }
         public void Damage (Item item, Player player, Enemy enemy)
         {
             // Evasion mechanic - possibility to dodge attack
@@ -45,11 +77,19 @@ namespace John_Dog
             }
             Dodged = false;
             if (Stunned) TurnsSinceStun++;
-            if (TurnsSinceStun > StunnedDuration + 1) Stunned = false;
+            if (TurnsSinceStun > StunnedDuration) Stunned = false;
             int dmg = Item.CalculateDMG(item, player);
-            enemy.HP -= JohnDog.GetDEFDamage(dmg, enemy);
-            DamageDealt = JohnDog.GetDEFDamage(dmg, enemy);
-            if (enemy.HP <= 0) enemy.Alive = false;
+            if (enemy.HP - JohnDog.GetDEFDamage(dmg, enemy) <= 0)
+            {
+                enemy.Alive = false;
+                return;
+            }
+            else
+            {
+                enemy.HP -= JohnDog.GetDEFDamage(dmg, enemy);
+                DamageDealt = JohnDog.GetDEFDamage(dmg, enemy);
+                if (enemy.HP <= 0) enemy.Alive = false;
+            }
         }
     }
 }

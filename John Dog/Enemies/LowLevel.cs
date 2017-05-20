@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using John_Dog.Items;
 
 namespace John_Dog.Enemies
 {
@@ -18,7 +19,10 @@ namespace John_Dog.Enemies
             Pirate.MaxDMG = 15;
             Pirate.HP = 125;
             Pirate.MP = 75;
-            Pirate.Name = "John the Pirate";            
+            Pirate.Name = "John the Pirate";
+            Pirate.loot.Amount = 1;
+            Pirate.loot.DropRate = 0.5f;
+            Pirate.loot.LootToDrop = Swords.Saber;
         }
     }
 }

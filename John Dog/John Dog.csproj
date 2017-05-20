@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Battle.cs" />
+    <Compile Include="ConditionEffect.cs" />
     <Compile Include="Enemies\LowLevel.cs" />
     <Compile Include="Enemy.cs" />
     <Compile Include="Item.cs" />
