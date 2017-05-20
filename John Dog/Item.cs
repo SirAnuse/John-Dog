@@ -77,6 +77,216 @@ namespace John_Dog
             }
         }
 
+        public static void Drop (Player player, string slot)
+        {
+            string entry = slot;
+            string[] cmds;
+            Regex argReg = new Regex(@"\w+|""[\w\s]*""");
+            cmds = new string[argReg.Matches(entry).Count];
+            int i = 0;
+            foreach (var enumer in argReg.Matches(entry))
+            {
+                cmds[i] = (string)enumer.ToString();
+                i++;
+            }
+
+            int meme = 0;
+            try { meme = Convert.ToInt32(cmds[0]); }
+            catch { }
+            if (meme > 0)
+            {
+                try
+                {
+                    Console.Write("<Inventory Manager> ", Color.Orange);
+                    Console.Write("Are you sure you want to drop your ", Color.White);
+                    if (player.Inventory[meme].Untiered) Console.Write(player.Inventory[meme].Name, Color.Purple);
+                    else Console.Write(player.Inventory[meme].Name, Color.Khaki);
+                    Console.Write("? [YES/NO]\n", Color.White);
+                    string yorn = Console.ReadLine();
+                    switch (yorn.ToLower())
+                    {
+                        case "never say never":
+                        case "y":
+                        case "ye":
+                        case "yes":
+                            JohnDog.Drop(player, meme);
+                            Console.ReadKey();
+                            break;
+                        case "n":
+                        case "ne":
+                        case "neh":
+                        case "never":
+                        case "neva":
+                        case "never forget justin bieber 2k06":
+                        case "no":
+                            JohnDog.Say("Inventory Manager", player.Inventory[meme].Name + " was not dropped!");
+                            Console.ReadKey();
+                            break;
+                        default:
+                            JohnDog.Say("Inventory Manager", "Please use 'n' or 'no' next time! If you meant yes, then use 'y' or 'yes'.");
+                            Console.ReadKey();
+                            break;
+                    }
+                }
+                catch { JohnDog.Say("Inventory Manager", "You can't drop what doesn't exist!"); }
+                Console.ReadKey();
+                return;
+            }
+            else if (cmds[0] == "slot")
+            {
+                try { meme = Convert.ToInt32(cmds[1]); }
+                catch { }
+                if (meme > 0)
+                {
+                    try
+                    {
+                        Console.Write("<Inventory Manager> ", Color.Orange);
+                        Console.Write("Are you sure you want to drop your ", Color.White);
+                        if (player.Inventory[meme].Untiered) Console.Write(player.Inventory[meme].Name, Color.Purple);
+                        else Console.Write(player.Inventory[meme].Name, Color.Khaki);
+                        Console.Write("? [YES/NO]\n", Color.White);
+                        string yorn = Console.ReadLine();
+                        switch (yorn.ToLower())
+                        {
+                            case "never say never":
+                            case "y":
+                            case "ye":
+                            case "yes":
+                                JohnDog.Drop(player, meme);
+                                Console.ReadKey();
+                                break;
+                            case "n":
+                            case "ne":
+                            case "neh":
+                            case "never":
+                            case "neva":
+                            case "never forget justin bieber 2k06":
+                            case "no":
+                                JohnDog.Say("Inventory Manager", player.Inventory[meme].Name + " was not dropped!");
+                                Console.ReadKey();
+                                break;
+                            default:
+                                JohnDog.Say("Inventory Manager", "Please use 'n' or 'no' next time! If you meant yes, then use 'y' or 'yes'.");
+                                Console.ReadKey();
+                                break;
+                        }
+                    }
+                    catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
+                    Console.ReadKey();
+                    return;
+                }
+            }
+            else
+            {
+                switch (slot.ToLower())
+                {
+                    case "1":
+                    case "weapon":
+                        JohnDog.Drop(player, meme);
+                        Console.ReadKey();
+                        break;
+                    case "2":
+                    case "shield":
+                    case "ability":
+                        JohnDog.Drop(player, meme);
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                    case "armour":
+                    case "armor":
+                        JohnDog.Drop(player, meme);
+                        Console.ReadKey();
+                        break;
+                    case "ring":
+                        JohnDog.Drop(player, meme);
+                        Console.ReadKey();
+                        break;
+                    default:
+                        JohnDog.Say("Inventory Manager", "You can't drop what doesn't exist!");
+                        break;
+                }
+            }
+        }
+
+        public static void Examine(Player player, string slot, string slotpt2)
+        {
+            string entry = slot + " " + slotpt2;
+            string[] cmds;
+            Regex argReg = new Regex(@"\w+|""[\w\s]*""");
+            cmds = new string[argReg.Matches(entry).Count];
+            int i = 0;
+            foreach (var enumer in argReg.Matches(entry))
+            {
+                cmds[i] = (string)enumer.ToString();
+                i++;
+            }
+
+            int meme = 0;
+            try { meme = Convert.ToInt32(cmds[0]); }
+            catch { }
+            if (meme > 0)
+            {
+                try
+                {
+                    PrintDetails(player.Inventory[meme]);
+                    Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                }
+                catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
+                Console.ReadKey();
+                return;
+            }
+            else if (cmds[0] == "slot")
+            {
+                try { meme = Convert.ToInt32(cmds[1]); }
+                catch { }
+                if (meme > 0)
+                {
+                    try
+                    {
+                        PrintDetails(player.Inventory[meme]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                    }
+                    catch { JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!"); }
+                    Console.ReadKey();
+                    return;
+                }
+            }
+            else
+            {
+                switch (slot.ToLower())
+                {
+                    case "1":
+                    case "weapon":
+                        Item.PrintDetails(player.Inventory[1]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "2":
+                    case "shield":
+                    case "ability":
+                        Item.PrintDetails(player.Inventory[2]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "3":
+                    case "armour":
+                    case "armor":
+                        Item.PrintDetails(player.Inventory[3]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "ring":
+                        Item.PrintDetails(player.Inventory[4]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    default:
+                        JohnDog.Say("Inventory Manager", "You can't examine what doesn't exist!");
+                        break;
+                }
+            }
+        }
+
         public static void Examine (Player player, string slot)
         {
             string entry = slot;

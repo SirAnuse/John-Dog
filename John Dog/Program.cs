@@ -49,7 +49,7 @@ namespace John_Dog
                 {
                     JohnDog.Say("Console", "You are on a beach. You are carrying a short sword and wooden shield.");
                     JohnDog.Say("Console", "There's a pirate wandering across the beach.");
-                    JohnDog.Say("Console", "You can say \"examine weapon\", for example, to examine your short sword.");
+                    JohnDog.Say("Console", "You can say 'examine weapon', for example, to examine your sword.");
                     entry = Console.ReadLine();
                     
                     Console.Clear();
@@ -65,12 +65,12 @@ namespace John_Dog
                             break;
                         case "examine weapon":
                             Item.PrintDetails(player.Inventory[1]);
-                            Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                            Console.Write("\nPress 'enter' once you are finished reading.", Color.Yellow);
                             Console.ReadKey();
                             break;
                         case "examine shield":
                             Item.PrintDetails(player.Inventory[2]);
-                            Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                            Console.Write("\nPress 'enter' once you are finished reading.", Color.Yellow);
                             Console.ReadKey();
                             break;
                         default:
@@ -106,7 +106,7 @@ namespace John_Dog
                                 Console.ReadKey();
                                 break;
                             default:
-                                JohnDog.Say("Console", "Did you mean \"view inventory\"?");
+                                JohnDog.Say("Console", "Did you mean 'view inventory'?");
                                 Console.ReadKey();
                                 break;
                         }
@@ -128,7 +128,11 @@ namespace John_Dog
                         }
                         break;
                     case "examine":
-                        Item.Examine(player, cmds[1].ToLower());
+                        if (cmds.Length > 2) Item.Examine(player, cmds[1].ToLower(), cmds[2].ToLower());
+                        else Item.Examine(player, cmds[1].ToLower());
+                        break;
+                    case "drop":
+                        Item.Drop(player, cmds[1].ToLower());
                         break;
                     default:
                         JohnDog.Say("Console", "Please enter something!");

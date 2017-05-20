@@ -42,7 +42,15 @@ namespace John_Dog
         }
         public static void Drop(Player player, int slot)
         {
-            player.Inventory.Remove(slot);
+            try
+            {
+                player.Inventory.Remove(slot);
+                JohnDog.Say("Inventory Manager", "You have dropped " + player.Inventory[slot] + "!");
+            }
+            catch
+            {
+                JohnDog.Say("Inventory Manager", "You cannot drop what does not exist!");
+            }
         }
         public static void Equip(Player player, int slot)
         {

@@ -32,7 +32,7 @@ namespace John_Dog
             {
                 case "forest":
                     JohnDog.Say("Enemy Info", "There is a Slime, simply sliming across the forest floor.");
-                    JohnDog.Say("Enemy Info", "There's also a Pirate plundering the forests. Who know's why he's there.");
+                    JohnDog.Say("Enemy Info", "There's also a Pirate plundering the forests. Who knows why he's there.");
                     break;
                 default:
                     JohnDog.Say("Enemy Info", "There seems to be nothing here.");
