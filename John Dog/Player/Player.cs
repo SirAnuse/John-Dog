@@ -35,6 +35,7 @@ namespace John_Dog
         public int ATT { get; set; }
         public int DEF { get; set; }
         public int WIS { get; set; }
+        public bool BattleCompleted { get; set; }
         public int DamageTaken { get; set; }
         public bool Alive { get; set; }
         public int CalculateMPRegen (Player player)

@@ -9,12 +9,20 @@ namespace John_Dog.Enemies
 {
     class LowLevel
     {
+        public static Enemy Slime = new Enemy();
         public static Enemy Pirate = new Enemy();
-        public static void SetPirateLoot(Enemy enemy)
+        public static void SetSlime()
         {
-            Loot.Amount = 1;
-            Loot.DropRate = 0.5f;
-            Loot.LootToDrop = Swords.Saber;
+            Slime.Alive = true;
+            Slime.DEF = 0;
+            Slime.MinDMG = 10;
+            Slime.MaxDMG = 25;
+            Slime.HP = 250;
+            Slime.MP = 0;
+            Loot.Amount.Add(1, 1);
+            Loot.ItemToDrop.Add(1, Swords.LongSword);
+            Loot.DropRate.Add(1, 0.35f);
+            
         }
         public static void SetPirate()
         {
@@ -26,6 +34,9 @@ namespace John_Dog.Enemies
             Pirate.HP = 125;
             Pirate.MP = 75;
             Pirate.Name = "John the Pirate";
+            Loot.Amount.Add(1, 1);
+            Loot.ItemToDrop.Add(1, Swords.Saber);
+            Loot.DropRate.Add(1, 0.5f);
         }
     }
 }

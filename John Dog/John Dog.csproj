@@ -59,6 +59,7 @@
     <Compile Include="Items\Swords.cs" />
     <Compile Include="JohnDog.cs" />
     <Compile Include="Loot.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Player\Player.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

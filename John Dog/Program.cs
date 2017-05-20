@@ -37,7 +37,12 @@ namespace John_Dog
             while (running)
             {
                 if (firstBit)
-                { 
+                {
+                    if (player.BattleCompleted)
+                    {
+                        firstBit = false;
+                        return;
+                    }
                     JohnDog.Say("Console", "You are on a beach. You are carrying a short sword and wooden shield.");
                     JohnDog.Say("Console", "There's a pirate wandering across the beach.");
                     JohnDog.Say("Console", "You can say \"examine weapon\", for example, to examine your short sword.");
@@ -47,7 +52,6 @@ namespace John_Dog
                     {
                         case "attack pirate":
                             Enemies.LowLevel.SetPirate();
-                            Enemies.LowLevel.SetPirateLoot(Enemies.LowLevel.Pirate);
                             Battle.Begin(player, Enemies.LowLevel.Pirate, true);
                             break;
                         case "examine weapon":
@@ -67,6 +71,36 @@ namespace John_Dog
                     }
                     Console.Clear();
                 }
+                Enemies.LowLevel.SetPirate();
+                Enemies.LowLevel.SetSlime();
+                Map.GetEquipmentDescription(player);
+                Map.GetMapDescription("forest");
+                Map.GetMapEnemies("forest");
+                entry = Console.ReadLine();
+                switch (entry.ToLower())
+                {
+                    case "attack pirate":
+                        Battle.Begin(player, Enemies.LowLevel.Pirate, true);
+                        break;
+                    case "attack slime":
+                        Battle.Begin(player, Enemies.LowLevel.Slime, true);
+                        break;
+                    case "examine weapon":
+                        Item.PrintDetails(player.Inventory[1]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    case "examine shield":
+                        Item.PrintDetails(player.Inventory[2]);
+                        Console.Write("\nPress 'Enter' once you are finished reading.", Color.Yellow);
+                        Console.ReadKey();
+                        break;
+                    default:
+                        JohnDog.Say("Console", "Please enter something!");
+                        Thread.Sleep(1250);
+                        break;
+                }
+                Console.Clear();
             }
             Console.ReadKey();
         }
