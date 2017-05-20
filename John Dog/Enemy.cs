@@ -40,28 +40,29 @@ namespace John_Dog
         public void ResetLoot ()
         {
             LootDropped = null;
-            loot.LootToDrop = null;
+            Loot.LootToDrop = null;
             HasLootDropped = false;
-            loot.DropRate = 0;
-            loot.Amount = 0;
+            Loot.DropRate = 0;
+            Loot.Amount = 0;
         }
-        public void DropLoot (Player player)
+
+        public void DropLoot (Player player, Enemy enemy)
         {
-            float dropProb = loot.DropRate * 100;
+            float dropProb = Loot.DropRate * 100;
             int rollDice = new Random().Next(1, 101);
 
             if (rollDice < dropProb)
             {
-                LootDropped = loot.LootToDrop;
+                LootDropped = Loot.LootToDrop;
                 HasLootDropped = true;
-                player.Inventory.Add(player.Inventory.Count + 1, loot.LootToDrop);
+                player.Inventory.Add(player.Inventory.Count + 1, Loot.LootToDrop);
             }
             else
             {
                 HasLootDropped = false;
-                loot.LootToDrop = null;
-                loot.DropRate = 0;
-                loot.Amount = 0;
+                Loot.LootToDrop = null;
+                Loot.DropRate = 0;
+                Loot.Amount = 0;
             }
         }
         public void Damage (Item item, Player player, Enemy enemy)

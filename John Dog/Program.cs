@@ -26,7 +26,7 @@ namespace John_Dog
             Shields.SetShields();
             JohnDog.Say("Console", "Welcome to John Dog v0.0.1, player!");
             JohnDog.Say("Console", "What is your name?");
-            Console.Write(">", Color.NavajoWhite);
+            Console.Write(">");
             player.Name = Console.ReadLine();
             player.SetPlayerDefaults(player);
             JohnDog.Say("Console", "Welcome, " + player.Name + "! I hope you enjoy your time playing John Dog!");
@@ -47,6 +47,7 @@ namespace John_Dog
                     {
                         case "attack pirate":
                             Enemies.LowLevel.SetPirate();
+                            Enemies.LowLevel.SetPirateLoot(Enemies.LowLevel.Pirate);
                             Battle.Begin(player, Enemies.LowLevel.Pirate, true);
                             break;
                         case "examine weapon":

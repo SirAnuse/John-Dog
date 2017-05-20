@@ -8,8 +8,8 @@ namespace John_Dog
 {
     class Loot
     {
-        public float DropRate { get; set; }
-        public Item LootToDrop { get; set; }
-        public int Amount { get; set; }
+        public static float DropRate { get; set; }
+        public static Item LootToDrop { get; set; }
+        public static int Amount { get; set; }
     }
 }

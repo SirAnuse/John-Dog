@@ -10,6 +10,12 @@ namespace John_Dog.Enemies
     class LowLevel
     {
         public static Enemy Pirate = new Enemy();
+        public static void SetPirateLoot(Enemy enemy)
+        {
+            Loot.Amount = 1;
+            Loot.DropRate = 0.5f;
+            Loot.LootToDrop = Swords.Saber;
+        }
         public static void SetPirate()
         {
             // Pirate
@@ -20,9 +26,6 @@ namespace John_Dog.Enemies
             Pirate.HP = 125;
             Pirate.MP = 75;
             Pirate.Name = "John the Pirate";
-            Pirate.loot.Amount = 1;
-            Pirate.loot.DropRate = 0.5f;
-            Pirate.loot.LootToDrop = Swords.Saber;
         }
     }
 }
